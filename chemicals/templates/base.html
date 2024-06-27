@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Lab Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2; /* Set a light background color */
+        }
+        .background-image {
+            background-image: url('/home/bhagyasree/Desktop/gbproj/gbproject/templates/registration/imglab.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3; /* Reduced opacity for background image */
+        }
+        nav {
+            background-color:#34495e;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        nav h1 {
+            padding-right: 200px;
+            font-size: 24px;
+            color: white;
+            margin-left: auto; /* Move h1 to the rightmost side */
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px; /* Reduced font size */
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 50px;
+            font-size: 36px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .box {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 20px; /* Reduced padding */
+            margin: 20px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Modified box shadow */
+            transition: transform 0.3s ease; /* Added transition effect */
+        }
+        .box:hover {
+            transform: translateY(-5px); /* Move box up on hover */
+        }
+        .box a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .box a:hover {
+            color: #4CAF50;
+        }
+        {% block style %}
+        {% endblock %}
+    </style>
+</head>
+<body>
+    <div class="background-image"></div>
+    <header>
+        <nav>
+            <a href="{% url 'home' %}"><h1>Chemistry Lab Management</h1></a>
+            <ul>
+                <li><a href="{% url 'display' %}">Chemicals</a></li>
+                <li><a href="{% url 'utendisplay' %}">Utensils</a></li>
+                <li><a href="{% url 'finedisplay' %}">Fines</a></li>
+                <li><a href="{% url 'stock' %}">Stock</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

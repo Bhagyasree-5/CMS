@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block style %}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+
+
+        table {
+            width: 60%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: black;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #ffffff;
+        }
+{% endblock style %}
+
+{% block content %}
+    <h1>Chemical Details</h1>
+    <h2>{{ chemical.name }}</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Purchased Date</th>
+                <th>Rate</th>
+                <th>Quantity Purchased</th>
+                <th>Quantity Issued</th>
+                <th>Issued To Whom</th>
+            </tr>
+        </thead>
+        <tbody> 
+            {% for chemical in chemicals %}
+            <tr>
+                <td>{{ chemical.Purchased_date }}</td>
+                <td>{{ chemical.Rate }}</td>
+                <td>{{ chemical.Quantity_purchased }}</td>
+                <td>{{ chemical.Quantity_issued }}</td>
+                <td>{{ chemical.Issued_to_whom }}</td>
+            </tr>
+            {% endfor %}
+ 
+        </tbody>
+    </table>
+{% endblock content %}

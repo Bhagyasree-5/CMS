@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block style %}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 15px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 28px;
+    color: white;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c3e50;
+}
+
+.search-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.search-container input {
+    padding: 10px;
+    width: 50%;
+    font-size: 16px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #bdc3c7;
+    text-align: center;
+}
+
+th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.box {
+    background-color: #3d566e;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 15px auto;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+}
+
+.box a, .box button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.box a:hover, .box button:hover {
+    text-decoration: underline;
+}
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .printable, .printable * {
+        visibility: visible;
+    }
+
+    .printable {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<h2>Fine Details</h2>
+
+<div class="printable">
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Year</th>
+                <th>Item</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in fine %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ f.Date }}</td>
+                <td>{{ f.Name }}</td>
+                <td>{{ f.Department }}</td>
+                <td>{{ f.Year }}</td>
+                <td>{{ f.Item }}</td>
+                <td>{{ f.Price }}</td>
+                <td {% if f.status == 'Received' %} id="fine_button" {% endif %}>
+                    {% if f.status == 'pending' %}
+                        <a href="{% url 'fine_recived' f.id %}"><button type="button">Pending</button></a>
+                    {% else %}
+                        <label>Received</label>
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="{% url 'delete_fine' f.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this fine details?');">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="box">
+    <button onclick="printPage()">Print</button>
+</div>
+
+<div class="box">
+    <a href="{% url 'fineadd' %}">Add Fine</a>
+</div>
+
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
+{% endblock %}

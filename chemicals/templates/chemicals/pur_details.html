@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% block style %}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c3e50;
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #bdc3c7;
+    text-align: center;
+}
+
+th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.printable {
+    margin-bottom: 50px; /* Ensure there's enough space below for the print button */
+}
+
+.box {
+    background-color: #2980b9;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 15px auto;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.box button {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .printable, .printable * {
+        visibility: visible;
+    }
+
+    .printable {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin-bottom: 0; /* Ensure no extra margin in print view */
+    }
+
+    .no-print {
+        display: none;
+    }
+}
+{% endblock %}
+
+{% block content %}
+<h1>Chemical Details</h1>
+
+<div class="printable">
+    {% for c in chem %}
+    <h2>{{ c.chem_name }}</h2>
+    {% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>Purchased Date</th>
+                <th>Bill Number</th>
+                <th>Rate</th>
+                <th>Quantity Purchased</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in chem %}
+            <tr>
+                <td>{{ c.Purchased_date }}</td>
+                <td>{{ c.Bill_no }}</td>
+                <td>{{ c.Rate }}</td>
+                <td>{{ c.Quantity_purchased }}</td>
+                <td>{{ c.Balance }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="box no-print">
+    <button onclick="printPage()">Print</button>
+</div>
+
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
+{% endblock %}

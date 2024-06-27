@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block style %}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 15px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 28px;
+    color: white;
+}
+
+.container {
+    width: 25%;
+    margin: 20px auto; /* Center the container horizontally */
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center; /* Center align contents */
+}
+
+h2 {
+    text-align: left; /* Align the heading to the left */
+    margin: 20px auto; /* Center the heading horizontally */
+    color: #2c3e50;
+    font-size: 24px; /* Reduced font size */
+    letter-spacing: 1px;
+    max-width: 80%; /* Limit the width of the heading */
+}
+
+form {
+    width: 100%;
+    margin: 20px auto; /* Center align the form horizontally */
+    text-align: left; /* Align form elements to the left */
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    font-size: 14px; /* Reduced font size */
+}
+
+form input[type="submit"] {
+    background-color: #3d566e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #34495e;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    nav h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 20px; /* Adjusted font size for smaller screens */
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 6px; /* Further reduced padding for smaller screens */
+        font-size: 12px; /* Reduced font size for smaller screens */
+    }
+}
+{% endblock style %}
+
+{% block content %}
+<h2><center>Stock</center></h2> 
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_table }}
+            <div style="text-align: center;">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}
