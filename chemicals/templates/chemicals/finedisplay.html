@@ -7,7 +7,10 @@ body {
     margin: 0;
     padding: 0;
 }
+h2{
+    padding-left :600px;
 
+}
 nav {
     background-color: #34495e;
     padding: 15px 20px;
@@ -24,9 +27,14 @@ nav h1 {
 }
 
 h1, h2 {
-    text-align: center;
-    margin-top: 20px;
     color: #2c3e50;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
 }
 
 .search-container {
@@ -69,29 +77,33 @@ tr:nth-child(odd) {
     background-color: #ffffff;
 }
 
-.box {
+.button-container {
+    display: flex;
+    gap: 10px;
+}
+
+.button {
     background-color: #3d566e;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 15px auto;
-    padding: 20px;
-    width: 200px;
+    padding: 5px 10px;
     text-align: center;
 }
 
-.box a, .box button {
+.button a, .button button {
     color: white;
     text-decoration: none;
     font-weight: bold;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.box a:hover, .box button:hover {
+.button a:hover, .button button:hover {
     text-decoration: underline;
 }
+
 @media print {
     body * {
         visibility: hidden;
@@ -111,7 +123,17 @@ tr:nth-child(odd) {
 {% endblock %}
 
 {% block content %}
-<h2>Fine Details</h2>
+<div class="header-container">
+    <h2>Fine Details</h2>
+    <div class="button-container">
+        <div class="button">
+            <button onclick="printPage()">Print</button>
+        </div>
+        <div class="button">
+            <a href="{% url 'fineadd' %}">Add Fine</a>
+        </div>
+    </div>
+</div>
 
 <div class="printable">
     <table>
@@ -155,14 +177,6 @@ tr:nth-child(odd) {
             {% endfor %}
         </tbody>
     </table>
-</div>
-
-<div class="box">
-    <button onclick="printPage()">Print</button>
-</div>
-
-<div class="box">
-    <a href="{% url 'fineadd' %}">Add Fine</a>
 </div>
 
 <script>

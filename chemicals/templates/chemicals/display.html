@@ -32,6 +32,9 @@ h1, h2 {
 .search-container {
     text-align: center;
     margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .search-container input {
@@ -40,6 +43,27 @@ h1, h2 {
     font-size: 16px;
     border: 1px solid #bdc3c7;
     border-radius: 5px;
+    margin-right: 10px;
+}
+
+.search-container .add-button {
+    background-color: #3d566e;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.search-container .add-button a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search-container .add-button a:hover {
+    text-decoration: underline;
 }
 
 table {
@@ -68,38 +92,17 @@ tr:nth-child(even) {
 tr:nth-child(odd) {
     background-color: #ffffff;
 }
-
-.box {
-    background-color: #3d566e;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 15px auto;
-    padding: 20px;
-    width: 200px;
-    text-align: center;
-}
-
-.box a, .box button {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.box a:hover, .box button:hover {
-    text-decoration: underline;
-}
 {% endblock %}
 
 {% block content %}
-<h2>List of Chemicals</h2>
-
 <div class="search-container">
     <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Search for chemicals..">
+    <div class="add-button">
+        <a href="{% url 'add' %}">Add Chemical</a>
+    </div>
 </div>
+
+<h2>List of Chemicals</h2>
 
 <table id="chemicalsTable">
     <thead>
@@ -126,11 +129,6 @@ tr:nth-child(odd) {
         {% endfor %}
     </tbody>
 </table>
-
-
-<div class="box">
-    <a href="{% url 'add' %}" style="color: white;">Add Chemical</a>
-</div>
 
 <script>
     function searchTable() {

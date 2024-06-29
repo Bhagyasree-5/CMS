@@ -12,8 +12,8 @@ urlpatterns = [
     path('finedisplay',views.finedisplay,name='finedisplay'),
     path('view/<int:chem_id>/',views.purchased_details,name='purchased_details'),
     path('Finerecive/<int:fine_id>/',views.fine_recived,name='fine_recived'),
-   
+    path('utensils/delete/<int:uten_id>/', views.delete_utensil, name='delete_utensil'),
     path('chemicals/delete/<int:pk>/', views.delete_chemical, name='delete_chemical'),
-    path('utensils/delete/<int:id>/', views.delete_utensil, name='delete_utensil'),
+    path('utensils/delete/<int:uten_id>/', views.delete_utensil, name='delete_utensil'),
     path('fines/delete/<int:pk>/', views.delete_fine, name='delete_fine'),
 ]

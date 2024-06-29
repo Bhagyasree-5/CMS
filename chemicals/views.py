@@ -102,12 +102,11 @@ def delete_chemical(request, pk):
     return redirect('display')
 
 @login_required
-def delete_utensil(request, id):
-    utensil = get_object_or_404(Utensils, id=utensil_id)
+def delete_utensil(request, uten_id):
+    utensil = get_object_or_404(Utensils, uten_id=uten_id)
     if request.method == 'POST':
         utensil.delete()
-        return redirect('list_utensils')
-    return render(request, 'confirm_delete.html', {'utensil': utensil})
+        return redirect('utendisplay')
 
 @login_required
 def delete_fine(request, pk):

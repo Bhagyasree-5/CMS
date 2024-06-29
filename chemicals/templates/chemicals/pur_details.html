@@ -19,6 +19,19 @@ h2 {
     color: #2c3e50;
 }
 
+.header-container {
+    display: flex;
+    justify-content: center; /* Center the title horizontally */
+    align-items: center;
+    margin: 20px;
+    position: relative; /* To position the print button absolutely */
+}
+
+.print-button-container {
+    position: absolute;
+    right: 0; /* Position the print button to the right */
+}
+
 table {
     width: 60%;
     margin: 20px auto;
@@ -50,21 +63,16 @@ tr:nth-child(odd) {
     margin-bottom: 50px; /* Ensure there's enough space below for the print button */
 }
 
-.box {
+.button {
     background-color: #2980b9;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 15px auto;
-    padding: 20px;
-    width: 200px;
+    padding: 10px 20px;
     text-align: center;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    cursor: pointer;
 }
 
-.box button {
+.button button {
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -98,7 +106,14 @@ tr:nth-child(odd) {
 {% endblock %}
 
 {% block content %}
-<h1>Chemical Details</h1>
+<div class="header-container">
+    <h1>Chemical Details</h1>
+    <div class="print-button-container no-print">
+        <div class="button">
+            <button onclick="printPage()">Print</button>
+        </div>
+    </div>
+</div>
 
 <div class="printable">
     {% for c in chem %}
@@ -126,10 +141,6 @@ tr:nth-child(odd) {
             {% endfor %}
         </tbody>
     </table>
-</div>
-
-<div class="box no-print">
-    <button onclick="printPage()">Print</button>
 </div>
 
 <script>
