@@ -20,37 +20,43 @@ class PurchasedDetails(models.Model):
     
 class Utensils(models.Model):
     uten_id = models.SmallIntegerField(unique=True)
-    uten_name = models.CharField(max_length=100,unique=True)
+    uten_name = models.CharField(max_length=100, unique=True)
     uten_location = models.SmallIntegerField(null=True)
+    price = models.IntegerField(default=0)  
+    quantity = models.IntegerField(default=0) 
 
     def __str__(self):
         return self.uten_name
 
 class Fine(models.Model):
-    dept=[
-        ('chemistry','Chemistry'),
-        ('physics','Physics'),
-        ('zoology','Zoology'),
-        ('botony','Botony')
+    dept = [
+        ('chemistry', 'Chemistry'),
+        ('physics', 'Physics'),
+        ('zoology', 'Zoology'),
+        ('botony', 'Botony')
     ]
-    yr=[
-        (1,'I year'),
-        (2,'II year'),
-        (3,'III year')
+    yr = [
+        (1, 'I year'),
+        (2, 'II year'),
+        (3, 'III year')
     ]
     STATUS_CHOICES = [
-        ('pending','Pending'),
-        ('received','Received'),
+        ('pending', 'Pending'),
+        ('received', 'Received'),
     ]
-    No = models.SmallIntegerField(unique=True,null=True,blank=True)
-    Date = models.DateField(null=True,blank=True)
+    admn_no = models.IntegerField(null=False)
+    Date = models.DateField(null=True, blank=True)
     Name = models.CharField(max_length=100)
-    Department = models.CharField(max_length=100,choices=dept)
-    status = models.CharField(max_length=10,choices=STATUS_CHOICES, default='Pending')
-    Year = models.SmallIntegerField(choices=yr,null=True,blank=True)
-    Item = models.CharField(max_length=100 ,null=True,blank=True)
-    Price = models.IntegerField(null=True,blank=True)
-    
+    Department = models.CharField(max_length=100, choices=dept)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    Year = models.SmallIntegerField(choices=yr, null=True, blank=True)
+    Item = models.ForeignKey(Utensils, on_delete=models.CASCADE)
+    price = models.IntegerField(null=True)
+
 
     def __str__(self):
-        return self.item
+        return self.Name
+
+    @property
+    def Price(self):
+        return self.Item.price

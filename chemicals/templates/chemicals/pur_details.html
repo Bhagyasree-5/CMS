@@ -64,7 +64,7 @@ tr:nth-child(odd) {
 }
 
 .button {
-    background-color: #2980b9;
+    background-color: #34495e; /* Updated color */
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 10px 20px;
@@ -80,6 +80,10 @@ tr:nth-child(odd) {
     border: none;
     cursor: pointer;
     font-size: 16px;
+}
+
+.button button:hover {
+    text-decoration: underline;
 }
 
 @media print {
@@ -116,12 +120,10 @@ tr:nth-child(odd) {
 </div>
 
 <div class="printable">
-    {% for c in chem %}
-    <h2>{{ c.chem_name }}</h2>
-    {% endfor %}
     <table>
         <thead>
             <tr>
+                <th>Chemical Name</th>
                 <th>Purchased Date</th>
                 <th>Bill Number</th>
                 <th>Rate</th>
@@ -130,15 +132,24 @@ tr:nth-child(odd) {
             </tr>
         </thead>
         <tbody>
-            {% for c in chem %}
-            <tr>
-                <td>{{ c.Purchased_date }}</td>
-                <td>{{ c.Bill_no }}</td>
-                <td>{{ c.Rate }}</td>
-                <td>{{ c.Quantity_purchased }}</td>
-                <td>{{ c.Balance }}</td>
-            </tr>
-            {% endfor %}
+            {% if chem %}
+                {% for c in chem %}
+                    <tr>
+                        {% if forloop.first %}
+                            <td rowspan="{{ chem|length }}">{{ c.chem_name }}</td>
+                        {% endif %}
+                        <td>{{ c.Purchased_date }}</td>
+                        <td>{{ c.Bill_no }}</td>
+                        <td>{{ c.Rate }}</td>
+                        <td>{{ c.Quantity_purchased }}</td>
+                        <td>{{ c.Balance }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="6">No chemical details found.</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

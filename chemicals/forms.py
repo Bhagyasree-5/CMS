@@ -12,10 +12,10 @@ class addUtensilForm(forms.ModelForm):
         model = Utensils
         fields = '__all__'
 
-class addFineForm(forms.ModelForm):
+class FineForm(forms.ModelForm):
     class Meta:
         model = Fine
-        fields = '__all__'
+        exclude = ['price']
         widgets = {
             'Date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
         }

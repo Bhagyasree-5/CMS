@@ -118,7 +118,12 @@ tr:nth-child(odd) {
         <tr>
             <td>{{ forloop.counter }}</td>
             <td>{{ chemical.chemical_name }}</td>
-            <td><a href="{% url 'purchased_details' chemical.id %}">more</a></td>
+            <td>
+                <form action="{% url 'purchased_details' chemical.id %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit">More</button>
+                </form>
+            </td>
             <td>
                 <form action="{% url 'delete_chemical' chemical.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this chemical?');">
                     {% csrf_token %}

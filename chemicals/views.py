@@ -66,14 +66,35 @@ def utendisplay(request):
 
 def addFine(request):
     if request.method == "POST":
-        form = addFineForm(request.POST)
+        form = FineForm(request.POST)
         if form.is_valid():
-            form.save()
+            cleaned_data = form.cleaned_data
+
+            # Retrieve the selected item (utensil)
+            item = cleaned_data.get('Item')
+
+            # Create a new Fine object
+            fine_obj = Fine(
+                admn_no=cleaned_data.get('admn_no'),
+                Date=cleaned_data.get('Date'),
+                Name=cleaned_data.get('Name'),
+                Department=cleaned_data.get('Department'),
+                status=cleaned_data.get('status'),
+                Year=cleaned_data.get('Year'),
+                Item=item,  # Assign the selected item (ForeignKey)
+            )
+
+            # Retrieve the price from the selected item and assign
+            fine_obj.price = item.price
+
+            # Save the Fine object
+            fine_obj.save()
+
             return redirect('home')
     else:
-        form = addFineForm()
-    return render(request,'chemicals/fineadd.html',{'form':form})
+        form = FineForm()
 
+    return render(request, 'chemicals/fineadd.html', {'form': form})
 def finedisplay(request):
     fine=Fine.objects.all()
     return render(request,'chemicals/finedisplay.html',{'fine':fine})
