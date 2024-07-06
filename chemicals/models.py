@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 # models.py
 
@@ -19,7 +19,6 @@ class PurchasedDetails(models.Model):
     Balance =  models.IntegerField(null=True,blank=True)
     
 class Utensils(models.Model):
-    uten_id = models.SmallIntegerField(unique=True)
     uten_name = models.CharField(max_length=100, unique=True)
     uten_location = models.SmallIntegerField(null=True)
     price = models.IntegerField(default=0)  
@@ -60,3 +59,23 @@ class Fine(models.Model):
     @property
     def Price(self):
         return self.Item.price
+    
+    def save(self, *args, **kwargs):
+        # Decrease the quantity of the related utensil
+        if self.Item.quantity > 0:
+            self.Item.quantity -= 1
+            self.Item.save()
+        
+        super(Fine, self).save(*args, **kwargs)
+
+class UtensilsStock(models.Model):
+    utensil =  models.ForeignKey("Utensils", on_delete=models.CASCADE)
+    purchased_date = models.DateField(null=True, default=timezone.now)
+    rate = models.IntegerField(null=True, blank=True)
+    quantity = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        # Update the quantity of the related utensil
+        self.utensil.quantity += self.quantity
+        self.utensil.save()
+        super(UtensilsStock, self).save(*args, **kwargs)

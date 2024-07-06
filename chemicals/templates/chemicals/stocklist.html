@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+    <title>Stock List</title>
+    {% block content %}
+    <h1>Stock List</h1>
+    <ul>
+        {% for stock in stocks %}
+            <li>{{ stock.utensil }} - {{ stock.purchased_date }} - {{ stock.rate }} - {{ stock.quantity }}</li>
+        {% endfor %}
+    </ul>
+    {% endblock %}
+

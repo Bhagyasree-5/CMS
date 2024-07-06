@@ -26,7 +26,7 @@ def stock(request):
         form = PurchaseForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('display')
     else:
         form = PurchaseForm()
 
@@ -54,7 +54,7 @@ def addUtensil(request):
             form = addUtensilForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect('home')
+                return redirect('utendisplay')
         else:
             form = addUtensilForm()
 
@@ -90,7 +90,7 @@ def addFine(request):
             # Save the Fine object
             fine_obj.save()
 
-            return redirect('home')
+            return redirect('stock_list')
     else:
         form = FineForm()
 
@@ -123,8 +123,8 @@ def delete_chemical(request, pk):
     return redirect('display')
 
 @login_required
-def delete_utensil(request, uten_id):
-    utensil = get_object_or_404(Utensils, uten_id=uten_id)
+def delete_utensil(request, id):
+    utensil = get_object_or_404(Utensils, id=id)
     if request.method == 'POST':
         utensil.delete()
         return redirect('utendisplay')
@@ -134,3 +134,19 @@ def delete_fine(request, pk):
     fine = get_object_or_404(Fine, pk=pk)
     fine.delete()
     return redirect('finedisplay')
+
+@login_required
+def add_stock(request):
+    if request.method == 'POST':
+        form = UtensilStockForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('stock_list')
+    else:
+        form = UtensilStockForm()
+    return render(request, 'chemicals/addstock.html', {'form': form})
+
+@login_required
+def stock_list(request):
+    stocks = UtensilsStock.objects.all()
+    return render(request, 'chemicals/stocklist.html', {'stocks': stocks})

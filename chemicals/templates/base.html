@@ -25,7 +25,7 @@
             opacity: 0.3; /* Reduced opacity for background image */
         }
         nav {
-            background-color:#34495e;
+            background-color: #34495e;
             padding: 5px;
             display: flex;
             justify-content: space-between;
@@ -48,6 +48,7 @@
         }
         nav ul li {
             margin: 0 15px;
+            position: relative; /* Needed for dropdown positioning */
         }
         nav ul li a {
             color: white;
@@ -57,6 +58,30 @@
         }
         nav ul li a:hover {
             text-decoration: underline;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            flex-direction: column;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown a {
+            padding: 10px;
+            white-space: nowrap;
+            color: black; /* Make dropdown links visible */
+        }
+
+        .dropdown a:hover {
+            background-color: #f1f1f1;
+        }
+
+        nav ul li:hover .dropdown {
+            display: flex;
         }
         h1 {
             text-align: center;
@@ -104,7 +129,14 @@
                 <li><a href="{% url 'display' %}">Chemicals</a></li>
                 <li><a href="{% url 'utendisplay' %}">Utensils</a></li>
                 <li><a href="{% url 'finedisplay' %}">Fines</a></li>
-                <li><a href="{% url 'stock' %}">Stock</a></li>
+                <li>
+                    <a href="#">Add Stock</a>
+                    <div class="dropdown">
+                        <a href="{% url 'stock' %}">Chemical Stock</a>
+                        <a href="{% url 'add_stock' %}">Utensil Stock</a>
+                    </div>
+                </li>
+                <li><a href="{% url 'stock_list' %}">Utensil Stock</a></li>
             </ul>
         </nav>
     </header>

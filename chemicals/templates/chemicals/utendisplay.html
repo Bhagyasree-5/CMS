@@ -126,7 +126,7 @@ tr:nth-child(odd) {
             <td>{{ u.price}}</td>
             <td>{{u.quantity}}</td>
             <td>
-                <form action="{% url 'delete_utensil' u.uten_id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this utensil?');">
+                <form action="{% url 'delete_utensil' u.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this utensil?');">
                     {% csrf_token %}
                     <button type="submit">Delete</button>
                 </form>

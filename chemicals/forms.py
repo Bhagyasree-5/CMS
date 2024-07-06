@@ -33,3 +33,8 @@ class PurchaseForm(forms.ModelForm):
             'Balance': forms.NumberInput(attrs={'class': 'form-control'}),
             
         }
+
+class UtensilStockForm(forms.ModelForm):
+    class Meta:
+        model = UtensilsStock
+        fields = '__all__'
