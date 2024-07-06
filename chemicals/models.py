@@ -61,10 +61,12 @@ class Fine(models.Model):
         return self.Item.price
     
     def save(self, *args, **kwargs):
-        # Decrease the quantity of the related utensil
-        if self.Item.quantity > 0:
-            self.Item.quantity -= 1
-            self.Item.save()
+        # Check if the instance is new
+        if not self.pk:
+            # Decrease the quantity of the related utensil if it's a new instance
+            if self.Item.quantity > 0:
+                self.Item.quantity -= 1
+                self.Item.save()
         
         super(Fine, self).save(*args, **kwargs)
 

@@ -105,7 +105,11 @@ form input[type="submit"]:hover {
 {% endblock style %}
 
 {% block content %}
+{% if edit %}
+<h2>Edit Chemical</h2> <!-- Moved outside the container to center horizontally on the page -->
+{% else %}
 <h2>Add New Chemical</h2> <!-- Moved outside the container to center horizontally on the page -->
+{% endif %}
 <div class="container">
     <form action="" method="post">
         {% csrf_token %}

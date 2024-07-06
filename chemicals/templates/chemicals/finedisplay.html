@@ -168,10 +168,8 @@ tr:nth-child(odd) {
                     {% endif %}
                 </td>
                 <td>
-                    <form action="{% url 'delete_fine' f.id %}" method="post" onsubmit="return confirm('Are you sure you want to delete this fine details?');">
-                        {% csrf_token %}
-                        <button type="submit">Delete</button>
-                    </form>
+                    <a href="{% url 'edit_fine' f.id %}"><button>Edit</button></a>
+                    <a href="{% url 'delete_fine' f.id %}"><button>Delete</button></a>
                 </td>
             </tr>
             {% endfor %}

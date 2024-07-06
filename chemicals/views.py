@@ -20,6 +20,18 @@ def add_chemical(request):
         form = ChemicalForm()
     return render(request,"chemicals/addchemical.html",{'form':form})
 
+@login_required
+def edit_chemical(request, chem_id):
+    chem = get_object_or_404(Chemicals, pk=chem_id)
+    if request.method == "POST":
+        form = ChemicalForm(request.POST, instance=chem)
+        if form.is_valid():
+            form.save()
+            return redirect('display')
+    else:
+        form = ChemicalForm(instance=chem)
+        return render(request, "chemicals/addchemical.html", {'form': form, 'edit':True})
+    
 @login_required()
 def stock(request):
     if request.method == "POST":
@@ -60,6 +72,16 @@ def addUtensil(request):
 
         return render(request,'chemicals/utenadd.html',{'form':form})
 
+def edit_utensil(request, id):
+    utensil = Utensils.objects.get(id=id)
+    if request.method == "POST":
+        form = addUtensilForm(request.POST, instance=utensil)
+        if form.is_valid():
+            form.save()
+            return redirect('utendisplay')
+    else:
+        form = addUtensilForm(instance=utensil)
+        return render(request, 'chemicals/utenadd.html', {'form': form,'edit':True})
 def utendisplay(request):
         uten=Utensils.objects.all()
         return render(request,'chemicals/utendisplay.html',{'uten':uten})
@@ -90,11 +112,23 @@ def addFine(request):
             # Save the Fine object
             fine_obj.save()
 
-            return redirect('stock_list')
+            return redirect('finedisplay')
     else:
         form = FineForm()
 
     return render(request, 'chemicals/fineadd.html', {'form': form})
+
+def editFine(request, id):
+    fine = Fine.objects.get(id=id)
+    if request.method == "POST":
+        form = FineForm(request.POST, instance=fine)
+        if form.is_valid():
+            form.save()
+            return redirect('stock_list')
+    else:
+        form = FineForm(instance=fine)
+        return render(request, 'chemicals/fineadd.html', {'form': form,'edit':True})
+    
 def finedisplay(request):
     fine=Fine.objects.all()
     return render(request,'chemicals/finedisplay.html',{'fine':fine})
