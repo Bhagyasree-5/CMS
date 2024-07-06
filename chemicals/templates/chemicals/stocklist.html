@@ -1,11 +1,89 @@
-{% extends 'base.html' %}
-    <title>Stock List</title>
-    {% block content %}
-    <h1>Stock List</h1>
-    <ul>
-        {% for stock in stocks %}
-            <li>{{ stock.utensil }} - {{ stock.purchased_date }} - {{ stock.rate }} - {{ stock.quantity }}</li>
-        {% endfor %}
-    </ul>
-    {% endblock %}
 
+
+{% extends 'base.html' %}
+
+{% block style %}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 15px 20px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 28px;
+    color: white;
+}
+
+h1, h2 {
+    text-align: center;
+    margin-top: 20px;
+    color: #2c3e50;
+    position: relative;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    border: 1px solid #bdc3c7;
+    text-align: center;
+}
+
+th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #ecf0f1;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+{% endblock %}
+
+{% block title %}Stock List{% endblock %}
+
+{% block content %}
+<h1>Stock List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Utensil</th>
+            <th>Purchased Date</th>
+            <th>Rate</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for stock in stocks %}
+        <tr>
+            <td>{{ stock.utensil }}</td>
+            <td>{{ stock.purchased_date }}</td>
+            <td>{{ stock.rate }}</td>
+            <td>{{ stock.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

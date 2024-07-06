@@ -1,12 +1,123 @@
+
 {% extends 'base.html' %}
-    <title>Add Stock</title>
-    {% block content %}
-    <h1>Add New Stock</h1>
-    <form method="post">
+
+{% block style %}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color:#f9f9f9;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+nav {
+    background-color: #34495e;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    display:flex;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav h1 {
+    margin: 0;
+    font-size: 24px;
+    letter-spacing: 1px;
+}
+
+.container {
+    width: 25%; /* Adjusted width for larger screens */
+    margin: 20px auto;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h2 {
+    text-align: center;
+    margin: 20px auto;
+    color: #333;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+form {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+}
+
+form input[type="submit"] {
+    background-color: #3d566e;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px auto;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    nav h1 {
+        font-size: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+}
+{% endblock style %}
+
+{% block title %}Add New Stock{% endblock %}
+
+{% block content %}
+<h2>Add New Stock</h2>
+<div class="container">
+    <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            {{ form.as_p }}
+            <div style="text-align: center;">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
     </form>
-    {% endblock %}
-    
-    
+</div>
+{% endblock content%}
