@@ -44,7 +44,7 @@ class Fine(models.Model):
         ('received', 'Received'),
     ]
     admn_no = models.IntegerField(null=False)
-    Date = models.DateField(null=True, blank=True)
+    Date = models.DateField(null=True, blank=True,default=timezone.now)
     Name = models.CharField(max_length=100)
     Department = models.CharField(max_length=100, choices=dept)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
