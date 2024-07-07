@@ -159,9 +159,8 @@ def delete_chemical(request, pk):
 @login_required
 def delete_utensil(request, id):
     utensil = get_object_or_404(Utensils, id=id)
-    if request.method == 'POST':
-        utensil.delete()
-        return redirect('utendisplay')
+    utensil.delete()
+    return redirect('utendisplay')
 
 @login_required
 def delete_fine(request, pk):
